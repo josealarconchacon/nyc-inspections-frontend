@@ -1,0 +1,65 @@
+<!-- Filters Section -->
+<section class="filters-section" aria-label="Search and filter options">
+  <div class="filters">
+    <div class="row g-3 align-items-end">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="search-input" class="sr-only">Search restaurants</label>
+          <div class="position-relative">
+            <input
+              id="search-input"
+              type="text"
+              class="form-input form-control"
+              placeholder="Search restaurants..."
+              [(ngModel)]="filters.q"
+              (input)="onSearchChange()"
+              aria-label="Search restaurants by name"
+              autocomplete="off"
+            />
+            <i
+              class="fas fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+            ></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="borough-select" class="sr-only">Select borough</label>
+          <select
+            id="borough-select"
+            class="form-select"
+            [(ngModel)]="filters.borough"
+            (change)="onBoroughChange()"
+            aria-label="Filter by borough"
+          >
+            <option value="">All Boroughs</option>
+            <option value="Manhattan">Manhattan</option>
+            <option value="Brooklyn">Brooklyn</option>
+            <option value="Queens">Queens</option>
+            <option value="Bronx">Bronx</option>
+            <option value="Staten Island">Staten Island</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="cuisine-input" class="sr-only"
+            >Filter by cuisine type</label
+          >
+          <input
+            id="cuisine-input"
+            type="text"
+            class="form-input form-control"
+            placeholder="Cuisine type..."
+            [(ngModel)]="filters.cuisine_description"
+            (input)="onCuisineChange()"
+            aria-label="Filter by cuisine type"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+<div
+  class="inspections-container container-fluid"
+  role="main"
+  aria-label="NYC Restaurant Inspections"
+>
+  <!-- Page Header -->
+  <header class="page-header">
+    <p class="page-description">
+      Explore restaurant inspection data across New York City's five boroughs
+    </p>
+  </header>
+
+  <!-- Filters Section -->
+  <app-inspection-filters></app-inspection-filters>
+
+  <!-- Loading State -->
+  <app-loading *ngIf="loading"></app-loading>
+
+  <!-- Inspections Section -->
+  <section
+    class="inspections-section"
+    *ngIf="!loading && inspections.length > 0"
+    aria-label="Restaurant inspections list"
+  >
+    <div class="inspections-list">
+      <div
+        class="inspection-item"
+        *ngFor="let inspection of inspections; trackBy: trackByInspection"
+      >
+        <app-inspection-card
+          [inspection]="inspection"
+          (viewDetails)="onViewDetails($event)"
+        ></app-inspection-card>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <app-inspection-pagination
+      *ngIf="!loading && inspections.length > 0"
+    ></app-inspection-pagination>
+  </section>
+
+  <!-- No Data State -->
+  <app-no-data *ngIf="!loading && inspections.length === 0"></app-no-data>
+</div>

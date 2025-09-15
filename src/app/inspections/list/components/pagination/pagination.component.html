@@ -1,0 +1,27 @@
+<!-- Pagination -->
+<nav class="pagination" aria-label="Pagination navigation">
+  <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+    <button
+      (click)="onPrev()"
+      [disabled]="filters.offset === 0"
+      class="btn btn-gradient"
+      aria-label="Go to previous page"
+    >
+      <i class="fas fa-chevron-left me-2" aria-hidden="true"></i>
+      <span class="d-none d-sm-inline">Previous</span>
+    </button>
+
+    <span class="page-info" aria-live="polite">
+      Page {{ Math.floor(filters.offset / filters.limit) + 1 }}
+    </span>
+
+    <button
+      (click)="onNext()"
+      class="btn btn-gradient"
+      aria-label="Go to next page"
+    >
+      <span class="d-none d-sm-inline">Next</span>
+      <i class="fas fa-chevron-right ms-2" aria-hidden="true"></i>
+    </button>
+  </div>
+</nav>

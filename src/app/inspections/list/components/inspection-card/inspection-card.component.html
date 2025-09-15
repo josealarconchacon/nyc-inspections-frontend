@@ -1,0 +1,82 @@
+<article
+  class="inspection-card card"
+  tabindex="0"
+  role="button"
+  [attr.aria-label]="'View details for ' + inspection.dba"
+  (click)="onViewDetails()"
+  (keydown.enter)="onViewDetails()"
+  (keydown.space)="onViewDetails()"
+>
+  <div class="card-body">
+    <header class="card-header">
+      <h3 class="restaurant-name card-title">
+        {{ inspection.dba }}
+      </h3>
+      <div class="restaurant-badge" *ngIf="inspection.grade">
+        <span class="grade-badge" [attr.data-grade]="inspection.grade">
+          {{ inspection.grade }}
+        </span>
+      </div>
+    </header>
+
+    <div class="card-content">
+      <div class="info-group">
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt text-primary" aria-hidden="true"></i>
+          <div>
+            <strong class="text-dark">Address:</strong>
+            <span class="info-value text-muted">
+              {{ inspection.building }} {{ inspection.street }},
+              {{ inspection.boro }} {{ inspection.zipcode }}
+            </span>
+          </div>
+        </div>
+
+        <div class="info-item" *ngIf="inspection.phone">
+          <i class="fas fa-phone text-primary" aria-hidden="true"></i>
+          <div>
+            <strong class="text-dark">Phone:</strong>
+            <span class="info-value text-muted">{{ inspection.phone }}</span>
+          </div>
+        </div>
+
+        <div class="info-item" *ngIf="inspection.cuisine_description">
+          <i class="fas fa-utensils text-primary" aria-hidden="true"></i>
+          <div>
+            <strong class="text-dark">Cuisine:</strong>
+            <span class="info-value text-muted">{{
+              inspection.cuisine_description
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="inspection-details"
+        *ngIf="
+          inspection.score ||
+          inspection.critical_flag ||
+          inspection.violation_description
+        "
+      >
+        <div class="score-item" *ngIf="inspection.score">
+          <strong>Score:</strong>
+          <span class="info-value">{{ inspection.score }}</span>
+        </div>
+
+        <div
+          class="critical-item"
+          *ngIf="inspection.critical_flag && inspection.critical_flag !== 'N'"
+        >
+          <strong>Critical Flag:</strong>
+          <span class="info-value">{{ inspection.critical_flag }}</span>
+        </div>
+
+        <div class="violation-item" *ngIf="inspection.violation_description">
+          <strong>Violation:</strong>
+          <span class="info-value">{{ inspection.violation_description }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

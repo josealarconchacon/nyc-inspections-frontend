@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  backend:
+    build: ./nyc-inspections-backend
+    env_file: ./nyc-inspections-backend/.env
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+
+  frontend:
+    build: ./nyc-inspections-frontend
+    ports:
+      - "4200:80"
+    restart: unless-stopped
