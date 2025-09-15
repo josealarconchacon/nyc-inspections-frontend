@@ -3,6 +3,7 @@
   tabindex="0"
   role="button"
   [attr.aria-label]="'View details for ' + inspection.dba"
+  [attr.data-grade]="inspection.grade"
   (click)="onViewDetails()"
   (keydown.enter)="onViewDetails()"
   (keydown.space)="onViewDetails()"
@@ -61,7 +62,9 @@
       >
         <div class="score-item" *ngIf="inspection.score">
           <strong>Score:</strong>
-          <span class="info-value">{{ inspection.score }}</span>
+          <span class="info-value" [attr.data-score]="inspection.score">{{
+            inspection.score
+          }}</span>
         </div>
 
         <div
@@ -69,7 +72,11 @@
           *ngIf="inspection.critical_flag && inspection.critical_flag !== 'N'"
         >
           <strong>Critical Flag:</strong>
-          <span class="info-value">{{ inspection.critical_flag }}</span>
+          <span
+            class="info-value"
+            [attr.data-critical]="inspection.critical_flag"
+            >{{ inspection.critical_flag }}</span
+          >
         </div>
 
         <div class="violation-item" *ngIf="inspection.violation_description">

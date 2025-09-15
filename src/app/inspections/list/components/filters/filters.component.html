@@ -16,7 +16,18 @@
               aria-label="Search restaurants by name"
               autocomplete="off"
             />
+            <button
+              *ngIf="filters.q"
+              type="button"
+              class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-3"
+              (click)="clearSearch()"
+              aria-label="Clear search"
+              title="Clear search"
+            >
+              <i class="fas fa-times"></i>
+            </button>
             <i
+              *ngIf="!filters.q"
               class="fas fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
             ></i>
           </div>
@@ -48,17 +59,54 @@
           <label for="cuisine-input" class="sr-only"
             >Filter by cuisine type</label
           >
-          <input
-            id="cuisine-input"
-            type="text"
-            class="form-input form-control"
-            placeholder="Cuisine type..."
-            [(ngModel)]="filters.cuisine_description"
-            (input)="onCuisineChange()"
-            aria-label="Filter by cuisine type"
-            autocomplete="off"
-          />
+          <div class="position-relative">
+            <input
+              id="cuisine-input"
+              type="text"
+              class="form-input form-control"
+              placeholder="Cuisine type (e.g., Italian, Chinese, Mexican)..."
+              [(ngModel)]="filters.cuisine_description"
+              (input)="onCuisineChange()"
+              aria-label="Filter by cuisine type"
+              autocomplete="off"
+            />
+            <button
+              *ngIf="filters.cuisine_description"
+              type="button"
+              class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-3"
+              (click)="clearCuisine()"
+              aria-label="Clear cuisine filter"
+              title="Clear cuisine filter"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+            <i
+              *ngIf="!filters.cuisine_description"
+              class="fas fa-utensils position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+            ></i>
+          </div>
+          <small class="form-text text-muted">
+            Type part of a cuisine name to find restaurants
+          </small>
         </div>
+      </div>
+    </div>
+
+    <!-- Clear All Filters Button -->
+    <div
+      class="row mt-3"
+      *ngIf="filters.q || filters.borough || filters.cuisine_description"
+    >
+      <div class="col-12 text-center">
+        <button
+          type="button"
+          class="btn btn-outline-secondary btn-sm"
+          (click)="clearFilters()"
+          aria-label="Clear all filters"
+        >
+          <i class="fas fa-times me-2"></i>
+          Clear All Filters
+        </button>
       </div>
     </div>
   </div>
