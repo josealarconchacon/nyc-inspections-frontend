@@ -71,7 +71,7 @@ export class InspectionFiltersComponent implements OnInit, OnDestroy {
   onBoroughChange() {
     this.filtersService.updateFilters({
       borough: this.filters.borough,
-      offset: 0, // Reset to first page when filtering
+      offset: 0,
     });
   }
 
