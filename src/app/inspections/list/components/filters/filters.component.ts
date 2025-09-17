@@ -10,6 +10,7 @@ import { InspectionFilters } from '../../../../models/inspection.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './filters.component.html',
+  styleUrl: './filters.component.scss',
 })
 export class InspectionFiltersComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -81,15 +82,5 @@ export class InspectionFiltersComponent implements OnInit, OnDestroy {
 
   clearFilters() {
     this.filtersService.resetFilters();
-  }
-
-  clearSearch() {
-    this.filters.q = '';
-    this.onSearchChange();
-  }
-
-  clearCuisine() {
-    this.filters.cuisine_description = '';
-    this.onCuisineChange();
   }
 }
