@@ -10,6 +10,7 @@ import { InspectionPaginationComponent } from './components/pagination/paginatio
 import { InspectionCardComponent } from './components/inspection-card/inspection-card.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NoDataComponent } from './components/no-data/no-data.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 @Component({
   selector: 'app-inspections-list',
@@ -21,6 +22,7 @@ import { NoDataComponent } from './components/no-data/no-data.component';
     InspectionCardComponent,
     LoadingComponent,
     NoDataComponent,
+    DetailComponent,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
@@ -28,6 +30,8 @@ import { NoDataComponent } from './components/no-data/no-data.component';
 export class InspectionsListComponent implements OnInit, OnDestroy {
   inspections: Inspection[] = [];
   loading = false;
+  selectedInspection: Inspection | null = null;
+  isDetailVisible = false;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -90,9 +94,14 @@ export class InspectionsListComponent implements OnInit, OnDestroy {
   }
 
   onViewDetails(inspection: Inspection) {
-    // Navigate to detail page
+    this.selectedInspection = inspection;
+    this.isDetailVisible = true;
     console.log('Viewing details for:', inspection.dba);
-    // this.router.navigate(['/inspections', inspection.camis]);
+  }
+
+  onCloseDetail() {
+    this.isDetailVisible = false;
+    this.selectedInspection = null;
   }
 
   trackByInspection(index: number, inspection: Inspection): string {
