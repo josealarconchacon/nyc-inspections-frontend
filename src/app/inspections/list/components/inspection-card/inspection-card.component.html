@@ -1,5 +1,5 @@
 <article
-  class="inspection-card card"
+  class="inspection-card"
   tabindex="0"
   role="button"
   [attr.aria-label]="'View details for ' + inspection.dba"
@@ -8,80 +8,103 @@
   (keydown.enter)="onViewDetails()"
   (keydown.space)="onViewDetails()"
 >
-  <div class="card-body">
-    <header class="card-header">
-      <h3 class="restaurant-name card-title">
-        {{ inspection.dba }}
-      </h3>
-      <div class="restaurant-badge" *ngIf="inspection.grade">
-        <span class="grade-badge" [attr.data-grade]="inspection.grade">
-          {{ inspection.grade }}
-        </span>
+  <!-- Card Header with Restaurant Name and Grade -->
+  <header class="card-header">
+    <div class="restaurant-info">
+      <h3 class="restaurant-name">{{ inspection.dba }}</h3>
+      <div class="restaurant-meta">
+        <span class="borough" *ngIf="inspection.boro">{{
+          inspection.boro
+        }}</span>
+        <span class="cuisine" *ngIf="inspection.cuisine_description">{{
+          inspection.cuisine_description
+        }}</span>
       </div>
-    </header>
+    </div>
+    <div class="grade-container" *ngIf="inspection.grade">
+      <div class="grade-badge" [attr.data-grade]="inspection.grade">
+        <span class="grade-letter">{{ inspection.grade }}</span>
+      </div>
+    </div>
+  </header>
 
-    <div class="card-content">
-      <div class="info-group">
-        <div class="info-item">
-          <i class="fas fa-map-marker-alt text-primary" aria-hidden="true"></i>
-          <div>
-            <strong class="text-dark">Address:</strong>
-            <span class="info-value text-muted">
-              {{ inspection.building }} {{ inspection.street }},
-              {{ inspection.boro }} {{ inspection.zipcode }}
-            </span>
-          </div>
+  <!-- Card Content -->
+  <div class="card-content">
+    <!-- Location Information -->
+    <div class="info-section location-section">
+      <div class="section-header">
+        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+        <span class="section-title">Location</span>
+      </div>
+      <div class="address-info">
+        <div class="address-line">
+          {{ inspection.building }} {{ inspection.street }}
         </div>
-
-        <div class="info-item" *ngIf="inspection.phone">
-          <i class="fas fa-phone text-primary" aria-hidden="true"></i>
-          <div>
-            <strong class="text-dark">Phone:</strong>
-            <span class="info-value text-muted">{{ inspection.phone }}</span>
-          </div>
-        </div>
-
-        <div class="info-item" *ngIf="inspection.cuisine_description">
-          <i class="fas fa-utensils text-primary" aria-hidden="true"></i>
-          <div>
-            <strong class="text-dark">Cuisine:</strong>
-            <span class="info-value text-muted">{{
-              inspection.cuisine_description
-            }}</span>
-          </div>
+        <div class="address-line secondary">
+          {{ inspection.boro }}, NY {{ inspection.zipcode }}
         </div>
       </div>
+    </div>
 
-      <div
-        class="inspection-details"
-        *ngIf="
-          inspection.score ||
-          inspection.critical_flag ||
-          inspection.violation_description
-        "
-      >
-        <div class="score-item" *ngIf="inspection.score">
-          <strong>Score:</strong>
-          <span class="info-value" [attr.data-score]="inspection.score">{{
-            inspection.score
-          }}</span>
+    <!-- Contact Information -->
+    <div class="info-section contact-section" *ngIf="inspection.phone">
+      <div class="section-header">
+        <i class="fas fa-phone" aria-hidden="true"></i>
+        <span class="section-title">Contact</span>
+      </div>
+      <div class="contact-info">
+        <a href="tel:{{ inspection.phone }}" class="phone-link">{{
+          inspection.phone
+        }}</a>
+      </div>
+    </div>
+
+    <!-- Inspection Details -->
+    <div
+      class="info-section inspection-section"
+      *ngIf="
+        inspection.score ||
+        inspection.critical_flag ||
+        inspection.violation_description
+      "
+    >
+      <div class="section-header">
+        <i class="fas fa-clipboard-check" aria-hidden="true"></i>
+        <span class="section-title">Inspection Details</span>
+      </div>
+
+      <div class="inspection-metrics">
+        <!-- Score -->
+        <div class="metric-item score-metric" *ngIf="inspection.score">
+          <div class="metric-label">Score</div>
+          <div
+            class="metric-value score-value"
+            [attr.data-score]="inspection.score"
+          >
+            {{ inspection.score }}
+          </div>
         </div>
 
+        <!-- Critical Flag -->
         <div
-          class="critical-item"
+          class="metric-item critical-metric"
           *ngIf="inspection.critical_flag && inspection.critical_flag !== 'N'"
         >
-          <strong>Critical Flag:</strong>
-          <span
-            class="info-value"
+          <div class="metric-label">Critical Flag</div>
+          <div
+            class="metric-value critical-value"
             [attr.data-critical]="inspection.critical_flag"
-            >{{ inspection.critical_flag }}</span
           >
+            {{ inspection.critical_flag }}
+          </div>
         </div>
+      </div>
 
-        <div class="violation-item" *ngIf="inspection.violation_description">
-          <strong>Violation:</strong>
-          <span class="info-value">{{ inspection.violation_description }}</span>
+      <!-- Violation Description -->
+      <div class="violation-info" *ngIf="inspection.violation_description">
+        <div class="violation-label">Violation</div>
+        <div class="violation-description">
+          {{ inspection.violation_description }}
         </div>
       </div>
     </div>
