@@ -11,4 +11,5 @@ import { DatePipe } from '@angular/common';
 export class AppComponent {
   title = 'nyc-inspections-frontend';
   currentDate = new Date();
+  currentYear = new Date().getFullYear();
 }
