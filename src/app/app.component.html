@@ -1,37 +1,47 @@
-<!-- Skip to content link for accessibility -->
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
 <!-- Main App Container -->
 <div class="app-container d-flex flex-column min-vh-100">
   <!-- Navigation Header -->
   <header class="app-header sticky-top" role="banner">
     <nav class="nav-container" role="navigation" aria-label="Main navigation">
       <div class="nav-content container-fluid">
-        <div class="logo-section">
-          <h1 class="app-title">
-            <span class="logo-icon" aria-hidden="true">🏪 </span>
-            <span class="d-none d-md-inline">NYC Restaurant Inspections</span>
-            <span class="d-inline d-md-none">NYC Inspections</span>
-          </h1>
+        <div class="header-main">
+          <!-- Logo and Title Section -->
+          <div class="logo-section">
+            <div class="logo-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </div>
+            <div class="title-section">
+              <h1 class="app-title">
+                <span class="d-none d-md-inline"
+                  >NYC Restaurant Inspections</span
+                >
+                <span class="d-inline d-md-none">NYC Inspections</span>
+              </h1>
+              <p class="app-subtitle d-none d-sm-block">
+                Official health inspection records for NYC establishments
+              </p>
+            </div>
+          </div>
         </div>
-
-        <!-- <div class="nav-links">
-          <a
-            routerLink="/inspections"
-            routerLinkActive="active"
-            class="nav-link btn btn-outline-primary"
-            aria-current="page"
-          >
-            <span class="nav-icon" aria-hidden="true">📋</span>
-            <span class="nav-text d-none d-lg-inline">Inspections</span>
-          </a>
-        </div> -->
       </div>
     </nav>
   </header>
 
   <!-- Main Content Area -->
-  <main id="main-content" class="main-content flex-grow-1" role="main">
+  <main class="main-content flex-grow-1" role="main">
     <div class="content-wrapper container-fluid">
       <router-outlet />
     </div>
@@ -40,19 +50,11 @@
   <!-- Footer -->
   <footer class="app-footer mt-auto" role="contentinfo">
     <div class="footer-content container text-center">
-      <p class="footer-text mb-1">
-        Data provided by
-        <a
-          href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="footer-link"
-        >
-          NYC Open Data
-        </a>
-      </p>
       <p class="footer-text mb-0">
-        <!-- {{ currentDate | date : "medium" }} -->
+        <span class="d-none d-md-inline"
+          >NYC Department of Health and Mental Hygiene (DOHMH) ·
+        </span>
+        Restaurant Inspection Data © {{ currentYear }}
       </p>
     </div>
   </footer>

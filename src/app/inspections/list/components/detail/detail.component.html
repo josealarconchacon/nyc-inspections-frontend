@@ -1,1 +1,162 @@
-<p>detail works!</p>
+<div
+  class="detail-overlay"
+  *ngIf="isVisible && inspection"
+  (click)="onBackdropClick($event)"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="'Details for ' + inspection.dba"
+>
+  <div class="detail-modal">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="restaurant-info">
+          <div
+            class="grade-badge"
+            *ngIf="inspection.grade"
+            [attr.data-grade]="inspection.grade"
+          >
+            {{ inspection.grade }}
+          </div>
+          <div class="restaurant-details">
+            <h1 class="restaurant-name">{{ inspection.dba }}</h1>
+            <p class="restaurant-address">
+              {{ inspection.building }} {{ inspection.street }},
+              {{ inspection.boro }}, NY {{ inspection.zipcode }}
+            </p>
+            <span class="cuisine-tag" *ngIf="inspection.cuisine_description">
+              {{ inspection.cuisine_description }}
+            </span>
+          </div>
+        </div>
+        <button
+          class="close-button"
+          (click)="onClose()"
+          aria-label="Close"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Quick Actions -->
+      <div class="actions" *ngIf="inspection.phone">
+        <a href="tel:{{ inspection.phone }}" class="action-button primary">
+          Call {{ inspection.phone }}
+        </a>
+        <button class="action-button secondary" type="button">
+          View on Map
+        </button>
+      </div>
+
+      <!-- Inspection Status -->
+      <div
+        class="status-card"
+        *ngIf="inspection.score || inspection.critical_flag"
+      >
+        <div class="status-header">
+          <h2>Inspection Status</h2>
+          <div class="inspection-date" *ngIf="inspection.inspection_date">
+            {{ inspection.inspection_date | date : "mediumDate" }}
+          </div>
+        </div>
+
+        <div class="status-content">
+          <div class="score-section" *ngIf="inspection.score">
+            <div class="score-display">
+              <div class="score-number" [attr.data-score]="inspection.score">
+                {{ inspection.score }}
+              </div>
+              <div class="score-info">
+                <div class="score-label">Inspection Score</div>
+                <div class="score-status" [attr.data-score]="inspection.score">
+                  {{ getScoreStatus(inspection.score) }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="critical-alert"
+            *ngIf="inspection.critical_flag && inspection.critical_flag !== 'N'"
+          >
+            <div class="alert-content">
+              <strong>Critical Violation Found</strong>
+              <p>
+                This establishment had critical violations during inspection.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div
+        class="info-card"
+        *ngIf="inspection.phone || inspection.community_board"
+      >
+        <h3 class="card-title">Contact Information</h3>
+        <div class="info-list">
+          <div class="info-item" *ngIf="inspection.phone">
+            <span class="label">Phone</span>
+            <a href="tel:{{ inspection.phone }}" class="value phone">{{
+              inspection.phone
+            }}</a>
+          </div>
+          <div class="info-item" *ngIf="inspection.community_board">
+            <span class="label">Community Board</span>
+            <span class="value">{{ inspection.community_board }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Violation Details -->
+      <div class="violation-card" *ngIf="inspection.violation_description">
+        <h3 class="card-title">Violation Details</h3>
+        <div class="violation-content">
+          <p class="violation-text">{{ inspection.violation_description }}</p>
+          <div class="violation-code" *ngIf="inspection.violation_code">
+            <span class="code-label">Violation Code:</span>
+            <span class="code-value">{{ inspection.violation_code }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div
+        class="info-card"
+        *ngIf="
+          inspection.action ||
+          inspection.inspection_type ||
+          inspection.record_date ||
+          inspection.council_district
+        "
+      >
+        <h3 class="card-title">Additional Details</h3>
+        <div class="info-list">
+          <div class="info-item" *ngIf="inspection.action">
+            <span class="label">Action Taken</span>
+            <span class="value">{{ inspection.action }}</span>
+          </div>
+          <div class="info-item" *ngIf="inspection.inspection_type">
+            <span class="label">Inspection Type</span>
+            <span class="value">{{ inspection.inspection_type }}</span>
+          </div>
+          <div class="info-item" *ngIf="inspection.record_date">
+            <span class="label">Record Date</span>
+            <span class="value">{{
+              inspection.record_date | date : "mediumDate"
+            }}</span>
+          </div>
+          <div class="info-item" *ngIf="inspection.council_district">
+            <span class="label">Council District</span>
+            <span class="value">{{ inspection.council_district }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

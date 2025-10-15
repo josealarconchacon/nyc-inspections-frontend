@@ -42,4 +42,11 @@
 
   <!-- No Data State -->
   <app-no-data *ngIf="!loading && inspections.length === 0"></app-no-data>
+
+  <!-- Detail Modal -->
+  <app-detail
+    [inspection]="selectedInspection"
+    [isVisible]="isDetailVisible"
+    (close)="onCloseDetail()"
+  ></app-detail>
 </div>
